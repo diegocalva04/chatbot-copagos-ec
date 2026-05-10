@@ -82,5 +82,7 @@ Este proyecto fue desarrollado como parte de un concurso de programación con IA
 Licencia
 MIT – libre de usar, modificar y distribuir.
 
-Autor
-Diego Calva – GitHub
+Autores
+Diego Calva
+Andrés Calucho 
+Josthin García
