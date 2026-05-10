@@ -12,7 +12,7 @@ from modules.utils import (
 )
 from modules.ui_components import render_intro, render_progress_badge, render_history_sidebar
 
-st.set_page_config(page_title="Asistente de Salud Ecuador", page_icon="🏥", layout="wide")
+st.set_page_config(page_title="Ecuasalud", page_icon="🏥", layout="wide")
 
 with open("assets/styles.css", "r") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
@@ -82,6 +82,21 @@ with st.sidebar:
 
 # ========== INTERFAZ PRINCIPAL ==========
 render_intro()
+
+# Guía de uso emergente
+with st.expander("📖 ¿Cómo obtener la información de atención más rápido?"):
+    st.markdown("""
+    Con **Ecuasalud** puedes obtener la especialidad, copago y hospital más económico sin esperar las 3 interacciones.
+    Solo escribe frases como:
+    - **"quiero atenderme"**
+    - **"cotizar precio"**
+    - **"cuánto cuesta la consulta"**
+    - **"necesito especialista"**
+    - **"hospital más económico"**
+    - **"precio de la cita"**
+    
+    Siempre que ya hayas descrito tus síntomas (en el mismo mensaje o en conversaciones previas).
+    """)
 
 plan_options = cargar_planes()
 plan_list = ["-- Selecciona tu plan --"] + list(plan_options.keys())

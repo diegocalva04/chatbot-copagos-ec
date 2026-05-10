@@ -22,7 +22,7 @@ def contiene_sintomas(texto):
     return any(s in tl for s in sintomas)
 
 def respuesta_saludo():
-    return "¡Hola! Soy tu asistente de salud. Por favor, descríbeme tus síntomas para poder ayudarte con recomendaciones."
+    return "¡Hola! Soy tu asistente de Ecuasalud. Por favor, descríbeme tus síntomas para poder ayudarte con recomendaciones."
 
 def es_agradecimiento(texto):
     return any(g in texto.lower() for g in ["gracias", "agradezco", "thank you", "muy amable"])

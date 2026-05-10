@@ -3,20 +3,7 @@ import streamlit as st
 def render_intro():
     st.markdown("""
     <div class="intro-box">
-        <h3>👋 Bienvenido al Asistente de Salud</h3>
-        <p><strong>¿Cómo funciona?</strong></p>
-        <ol>
-            <li>Selecciona tu <strong>plan de seguro</strong> en el recuadro de abajo.</li>
-            <li>Describe tus <strong>síntomas</strong> en el chat (ej. "Tengo dolor de cabeza y fiebre").</li>
-            <li>Recibirás <strong>recomendaciones prácticas</strong> y podrás seguir conversando.</li>
-            <li>Después de <strong>3 interacciones</strong> (o si escribes "quiero atenderme", "cotizar precio", etc.), obtendrás automáticamente:
-                <ul>
-                    <li>✔ Especialidad médica sugerida</li>
-                    <li>✔ Copago estimado según tu plan</li>
-                    <li>✔ Hospital más económico en tu red</li>
-                </ul>
-            </li>
-        </ol>
+        <h3>👋 Bienvenido a Ecuasalud, ¡Tu asistente de confianza!</h3>
     </div>
     """, unsafe_allow_html=True)
 
