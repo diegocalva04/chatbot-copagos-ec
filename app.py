@@ -12,7 +12,7 @@ from modules.utils import (
 )
 from modules.ui_components import render_intro, render_progress_badge, render_history_sidebar
 
-st.set_page_config(page_title="Ecuasalud", page_icon="🏥", layout="wide")
+st.set_page_config(page_title="Ecuasalud", page_icon="⚕️", layout="wide")
 
 with open("assets/styles.css", "r") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
@@ -242,7 +242,7 @@ user_input = st.chat_input(
 
 if user_input and not st.session_state.viewing_history and not st.session_state.final_shown and plan_id:
     if not user_input.strip():
-        st.warning("Por favor, describe tus síntomas. Ejemplo: 'Tengo dolor de cabeza'.")
+        st.warning("🔍 Por favor, describe tus síntomas. Ejemplo: 'Tengo dolor de cabeza'.")
     else:
         if es_saludo_sin_sintomas(user_input):
             saludo_resp = respuesta_saludo()
@@ -253,6 +253,11 @@ if user_input and not st.session_state.viewing_history and not st.session_state.
         else:
             tiene_sintomas = contiene_sintomas(user_input)
             if es_peticion_atencion(user_input):
+                # Añadir el mensaje del usuario al historial ANTES de activar la respuesta final
+                st.session_state.messages.append({"role": "user", "content": user_input})
+                with st.chat_message("user"):
+                    st.markdown(user_input)
+                
                 if tiene_sintomas or st.session_state.interaction_count > 0:
                     st.session_state.force_final = True
                     st.rerun()

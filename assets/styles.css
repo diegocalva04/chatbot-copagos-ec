@@ -1,7 +1,7 @@
 /* ========== ESTILOS BASE (MODO CLARO) ========== */
 .intro-box {
     background-color: #e8f0fe;
-    border-left: 5px solid #2e7d32;
+    border-left: 5px solid #00A8FF;
     border-radius: 12px;
     padding: 1rem 1.5rem;
     margin-bottom: 2rem;
@@ -9,7 +9,7 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 .progress-badge {
-    background-color: #4caf50;
+    background-color: #00A8FF;
     color: white;
     border-radius: 20px;
     padding: 6px 12px;
@@ -23,7 +23,7 @@
     padding: 0.5rem;
     margin-bottom: 0.5rem;
     font-size: 0.85rem;
-    border-left: 3px solid #2e7d32;
+    border-left: 3px solid #00A8FF;
     color: #1e2a3a;
 }
 .history-timestamp {
@@ -63,7 +63,7 @@ div.stButton > button[kind="secondary"]:hover {
     .intro-box {
         background-color: #1e2a3a;
         color: #e0e0e0;
-        border-left-color: #66bb6a;
+        border-left-color: #00A8FF;
     }
     .progress-badge {
         background-color: #2c3e2f;
@@ -72,7 +72,7 @@ div.stButton > button[kind="secondary"]:hover {
     .history-item {
         background-color: #2d2d2d;
         color: #ddd;
-        border-left-color: #66bb6a;
+        border-left-color: #00A8FF;
     }
     .history-timestamp {
         color: #aaa;
