@@ -88,7 +88,7 @@ with st.sidebar:
     </div>
     """, unsafe_allow_html=True)
     
-    if st.button("🔄 Nueva consulta", use_container_width=True):
+    if st.button("Nueva consulta", use_container_width=True):
         st.session_state.messages = []
         st.session_state.interaction_count = 0
         st.session_state.final_shown = False
@@ -108,7 +108,7 @@ with st.sidebar:
 render_intro()
 
 # Guía de uso emergente
-with st.expander("📖 ¿Cómo obtener la información de atención más rápido?"):
+with st.expander("¿Cómo obtener la información de atención más rápido?"):
     st.markdown("""
     Con **Ecuasalud** puedes obtener la especialidad, copago y hospital más económico sin esperar las 3 interacciones.
     Solo escribe frases como:
@@ -126,7 +126,7 @@ plan_options = cargar_planes()
 plan_list = ["-- Selecciona tu plan --"] + list(plan_options.keys())
 plan_disabled = st.session_state.viewing_history
 selected_label = st.selectbox(
-    "📄 Plan de seguro",
+    "Plan de seguro",
     plan_list,
     index=st.session_state.plan_selected_index,
     key=f"plan_selector_{st.session_state.reset_counter}",
@@ -150,7 +150,7 @@ else:
         st.success("✅ Plan activo")
 
 if st.session_state.viewing_history:
-    st.info("📖 Estás viendo una conversación anterior (solo lectura). Usa 'Nueva consulta' para iniciar una nueva.")
+    st.info("Estás viendo una conversación anterior (solo lectura). Usa 'Nueva consulta' para iniciar una nueva.")
 
 if not st.session_state.viewing_history and not st.session_state.final_shown and plan_id:
     remaining = max(0, MAX_INTERACTIONS - st.session_state.interaction_count)
@@ -235,14 +235,14 @@ if not st.session_state.viewing_history and (st.session_state.force_final or st.
 
 input_disabled = (plan_id is None) or st.session_state.viewing_history or st.session_state.final_shown
 user_input = st.chat_input(
-    "✏️ Describe tus síntomas...",
+    "Describe tus síntomas...",
     disabled=input_disabled,
     key=f"chat_input_{st.session_state.reset_counter}"
 )
 
 if user_input and not st.session_state.viewing_history and not st.session_state.final_shown and plan_id:
     if not user_input.strip():
-        st.warning("🔍 Por favor, describe tus síntomas. Ejemplo: 'Tengo dolor de cabeza'.")
+        st.warning("Por favor, describe tus síntomas. Ejemplo: 'Tengo dolor de cabeza'.")
     else:
         if es_saludo_sin_sintomas(user_input):
             saludo_resp = respuesta_saludo()

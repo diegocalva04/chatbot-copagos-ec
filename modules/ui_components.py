@@ -3,15 +3,15 @@ import streamlit as st
 def render_intro():
     st.markdown("""
     <div class="intro-box">
-        <h3>👋 Bienvenido a Ecuasalud, ¡Tu asistente de confianza!</h3>
+        <h3>Bienvenido a Ecuasalud, ¡Tu asistente de confianza!</h3>
     </div>
     """, unsafe_allow_html=True)
 
 def render_progress_badge(remaining):
-    st.markdown(f'<div class="progress-badge">💬 Preguntas restantes para respuesta automática: <strong>{remaining}</strong></div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="progress-badge">Preguntas restantes para respuesta automática: <strong>{remaining}</strong></div>', unsafe_allow_html=True)
 
 def render_history_sidebar(historial, on_load_callback, on_delete_callback):
-    st.header("📋 Consultas anteriores")
+    st.header("Consultas anteriores")
     if not historial:
         st.info("Tus conversaciones anteriores aparecerán aquí.")
     else:
