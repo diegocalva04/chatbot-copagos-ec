@@ -78,3 +78,36 @@ div.stButton > button[kind="secondary"]:hover {
         color: #aaa;
     }
 }
+
+/* ========== BOTONES PERSONALIZADOS (ECUASALUD) ========== */
+/* Botón Nueva consulta en sidebar */
+section[data-testid="stSidebar"] button:first-child {
+    background-color: #00A8FF !important;
+    color: white !important;
+    border: none !important;
+    font-weight: 500 !important;
+}
+section[data-testid="stSidebar"] button:first-child:hover {
+    background-color: #0088CC !important;
+    transform: translateY(-1px);
+}
+
+/* Botón Quiero atenderme en el área principal */
+button[kind="secondary"] {
+    background-color: #00A8FF !important;
+    color: white !important;
+    border: none !important;
+}
+button[kind="secondary"]:hover {
+    background-color: #0088CC !important;
+    transform: translateY(-1px);
+}
+
+/* Asegurar que los botones del historial no se vean afectados */
+.history-item button,
+.history-item button:hover {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    color: inherit !important;
+    transform: scale(1.1) !important;
+}

@@ -67,6 +67,27 @@ def guardar_conversacion_en_historial(especialidad, copago, primer_sintoma, mens
 
 # ========== SIDEBAR ==========
 with st.sidebar:
+    # Encabezado estilizado
+    st.markdown("""
+    <div style="text-align: center; margin-bottom: 25px;">
+        <div style="font-size: 2.8rem; line-height: 1;">⚕️</div>
+        <h1 style="font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif; 
+                   color: #00A8FF; 
+                   font-weight: 700; 
+                   font-size: 2.2rem; 
+                   margin: 0; 
+                   letter-spacing: -0.5px;">
+            Ecuasalud
+        </h1>
+        <p style="font-family: monospace; 
+                  color: #4A5568; 
+                  font-size: 0.75rem; 
+                  margin-top: -5px;">
+            asistente médico inteligente
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
     if st.button("🔄 Nueva consulta", use_container_width=True):
         st.session_state.messages = []
         st.session_state.interaction_count = 0
@@ -77,7 +98,10 @@ with st.sidebar:
         st.session_state.reset_counter += 1
         st.rerun()
     st.markdown("---")
+    
+    # Mostrar historial de conversaciones
     render_history_sidebar(st.session_state.historial, cargar_conversacion, eliminar_del_historial)
+    
     st.caption("Sistema estimador - Siempre consulta a un profesional.")
 
 # ========== INTERFAZ PRINCIPAL ==========
