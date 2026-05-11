@@ -1,5 +1,5 @@
 def es_saludo_sin_sintomas(texto):
-    saludos = ["hola", "buenos días", "buenas tardes", "buenas noches", "qué tal", "como estás", "saludos", "ola", "hey"]
+    saludos = ["hola", "buenos días", "buenas tardes", "buenas noches", "qué tal", "como estás", "saludos", "ola", "hey", "Hi", "hello", "buen día", "buenas"]
     sintomas = [
         "dolor", "fiebre", "tos", "cabeza", "mareo", "gripe", "resfriado", "estómago", "pecho", "garganta",
         "náusea", "vómito", "diarrea", "congestión", "escalofrío", "sudor", "alergia", "erupción", "sarpullido",
@@ -34,7 +34,7 @@ def es_peticion_atencion(texto):
         "copago", "atencion", "atender en hospital", "atenderme",
         "cotizar", "cotización", "cotizar precio", "precio de consulta", "valor de la cita",
         "quiero saber el costo", "cuánto cuesta la cita", "tarifa", "cuánto me sale",
-        "cuánto me cuesta", "precio atención", "costo de la consulta"
+        "cuánto me cuesta", "precio atención", "costo de la consulta", "valor de la consulta"
     ]
     tl = texto.lower().strip()
     return any(f in tl for f in frases)
