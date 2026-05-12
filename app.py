@@ -310,7 +310,8 @@ if user_input and not st.session_state.viewing_history and not st.session_state.
                         except:
                             rec, pregunta = "No se pudo obtener recomendación.", ""
                         respuesta = f"**🩺 Recomendación:** {rec}"
-                        if pregunta:
+                        # Mostrar pregunta solo si no es la última interacción
+                        if pregunta and st.session_state.interaction_count < MAX_INTERACTIONS:
                             respuesta += f"\n\n**❓ Para ayudarte mejor:** {pregunta}"
                         st.markdown(respuesta)
                         st.session_state.messages.append({"role": "assistant", "content": respuesta})
