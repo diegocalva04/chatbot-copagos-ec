@@ -190,20 +190,32 @@ def mostrar_respuesta_final():
                 respuesta += f"*({razon_tecnica.lower()})*\n\n"
             respuesta += f"**💊 Recomendación final:** {rec}\n\n"
             respuesta += f"**📄 Plan de seguro seleccionado:** {plan_info}\n\n"
-            if copago:
-                respuesta += f"**💰 Copago estimado:** ${copago:.2f} USD\n\n"
-            else:
-                respuesta += "**💰 Copago:** No registrado para este plan. Verifica con tu aseguradora.\n\n"
+            
+            #if copago:
+                #respuesta += f"**💰 Copago estimado:** ${copago:.2f} USD\n\n"
+            #else:
+                #respuesta += "**💰 Copago:** No registrado para este plan. Verifica con tu aseguradora.\n\n"
             
             if hospitales:
                 mejor = hospitales[0]
+                costo_base = mejor['costo_consulta_base']
+                
                 respuesta += f"**🏥 Hospital más económico en tu red:**\n"
-                respuesta += f"   • **{mejor['nombre']}** – {mejor['ciudad']}\n"
-                respuesta += f"     Costo de consulta base: ${mejor['costo_consulta_base']:.2f}\n\n"
+                respuesta += f"    {mejor['nombre']} – {mejor['ciudad']}\n"
+                #respuesta += f"     \n Costo de consulta base en este hospital: ${costo_base:.2f}\n\n"
+                
+                # Desglose de costos (si hay copago)
+                if copago:
+                    ahorro = costo_base - copago
+                    respuesta += f"\n**💰 Desglose financiero:**\n"
+                    respuesta += f"  \n• Costo total consulta: ${costo_base:.2f}\n"
+                    respuesta += f"  \n• Copago a su cargo: ${copago:.2f}\n"
+                    respuesta += f"  \n• Su seguro paga: ${ahorro:.2f}\n\n"
+                
                 if len(hospitales) > 1:
-                    respuesta += f"**Otras opciones cercanas:**\n"
+                    respuesta += f"**🏥 Otras opciones (Hospitales) afiliados a su seguro:**\n"
                     for h in hospitales[1:4]:
-                        respuesta += f"   • {h['nombre']} – {h['ciudad']} – ${h['costo_consulta_base']:.2f}\n"
+                        respuesta += f"   \n• {h['nombre']} – {h['ciudad']} – ${h['costo_consulta_base']:.2f}\n"
                     respuesta += "\n"
             else:
                 respuesta += "**🏥 Hospitales en red:** No se encontraron para esta especialidad. Contacta a tu aseguradora.\n\n"
@@ -215,6 +227,19 @@ def mostrar_respuesta_final():
             st.session_state.messages.append({"role": "assistant", "content": respuesta})
             st.session_state.final_shown = True
             st.session_state.force_final = False
+            
+            # Generar resumen de la conversación
+            resumen = generar_resumen_conversacion(st.session_state.messages)
+            
+            guardar_conversacion_en_historial(
+                especialidad, copago, primer_sintoma,
+                st.session_state.messages.copy(),
+                st.session_state.interaction_count,
+                st.session_state.plan_selected_index,
+                selected_label,
+                resumen
+            )
+            st.rerun()
             
             # Generar resumen de la conversación
             resumen = generar_resumen_conversacion(st.session_state.messages)
