@@ -171,11 +171,10 @@ def mostrar_respuesta_final():
             try:
                 data = json.loads(respuesta_json)
                 especialidad = data.get("especialidad", "Medicina General")
-                razon_tecnica = data.get("razon_tecnica", "")
-                explicacion = data.get("explicacion_paciente", "Basado en tus síntomas, esta es la especialidad más adecuada.")
+                explicacion = data.get("explicacion_detallada", "Basado en tus síntomas, esta es la especialidad más adecuada.")
                 rec = data.get("recomendaciones", "Consulta a un médico si los síntomas persisten.")
             except Exception:
-                especialidad, razon_tecnica, explicacion, rec = "Medicina General", "", "No se pudo analizar en detalle.", "Consulta a un médico."
+                especialidad, explicacion, rec = "Medicina General", "No se pudo analizar en detalle.", "Consulta a un médico."
             
             copago, hospitales = buscar_copago_y_hospitales(especialidad, plan_id)
             primer_sintoma = next((m["content"] for m in st.session_state.messages if m["role"] == "user"), "tus síntomas")
@@ -186,15 +185,14 @@ def mostrar_respuesta_final():
             
             respuesta = f"**🔍 Especialidad sugerida:** {especialidad}\n\n"
             respuesta += f"**📋 ¿Por qué?** {explicacion}\n\n"
-            if razon_tecnica:
-                respuesta += f"*({razon_tecnica.lower()})*\n\n"
             respuesta += f"**💊 Recomendación final:** {rec}\n\n"
             respuesta += f"**📄 Plan de seguro seleccionado:** {plan_info}\n\n"
             
+            # Copago comentado originalmente, pero lo dejamos comentado
             #if copago:
-                #respuesta += f"**💰 Copago estimado:** ${copago:.2f} USD\n\n"
+            #    respuesta += f"**💰 Copago estimado:** ${copago:.2f} USD\n\n"
             #else:
-                #respuesta += "**💰 Copago:** No registrado para este plan. Verifica con tu aseguradora.\n\n"
+            #    respuesta += "**💰 Copago:** No registrado para este plan. Verifica con tu aseguradora.\n\n"
             
             if hospitales:
                 mejor = hospitales[0]
@@ -202,15 +200,16 @@ def mostrar_respuesta_final():
                 
                 respuesta += f"**🏥 Hospital más económico en tu red:**\n"
                 respuesta += f"    {mejor['nombre']} – {mejor['ciudad']}\n"
-                #respuesta += f"     \n Costo de consulta base en este hospital: ${costo_base:.2f}\n\n"
                 
-                # Desglose de costos (si hay copago)
-                if copago:
+                # Desglose de costos con validación
+                if copago and copago is not None:
                     ahorro = costo_base - copago
                     respuesta += f"\n**💰 Desglose financiero:**\n"
                     respuesta += f"  \n• Costo total consulta: ${costo_base:.2f}\n"
                     respuesta += f"  \n• Copago a su cargo: ${copago:.2f}\n"
                     respuesta += f"  \n• Su seguro paga: ${ahorro:.2f}\n\n"
+                else:
+                    respuesta += f"\n**💰 Desglose financiero:** No se encontró información de copago para este plan y especialidad. Verifica con tu aseguradora.\n\n"
                 
                 if len(hospitales) > 1:
                     respuesta += f"**🏥 Otras opciones (Hospitales) afiliados a su seguro:**\n"
@@ -227,19 +226,6 @@ def mostrar_respuesta_final():
             st.session_state.messages.append({"role": "assistant", "content": respuesta})
             st.session_state.final_shown = True
             st.session_state.force_final = False
-            
-            # Generar resumen de la conversación
-            resumen = generar_resumen_conversacion(st.session_state.messages)
-            
-            guardar_conversacion_en_historial(
-                especialidad, copago, primer_sintoma,
-                st.session_state.messages.copy(),
-                st.session_state.interaction_count,
-                st.session_state.plan_selected_index,
-                selected_label,
-                resumen
-            )
-            st.rerun()
             
             # Generar resumen de la conversación
             resumen = generar_resumen_conversacion(st.session_state.messages)
