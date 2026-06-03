@@ -14,7 +14,7 @@ jobs:
       - name: Checkout del código
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # Necesario para que SonarQube vea el historial Git
 
       - name: Configurar Python
         uses: actions/setup-python@v5
@@ -24,18 +24,23 @@ jobs:
       - name: Instalar dependencias
         run: |
           python -m pip install --upgrade pip
+          # Instalamos pytest y pytest-cov directamente para evitar fallos
+          pip install pytest pytest-cov
+          # Si tienes un requirements.txt, descomenta la siguiente línea:
           pip install -r requirements.txt
 
       - name: Crear tests básicos (si no existen)
         run: |
           mkdir -p tests
+          # Solo crea el test dummy si no hay archivos .py en tests/
           if [ -z "$(ls -A tests/*.py 2>/dev/null)" ]; then
             echo 'def test_dummy(): assert True' > tests/test_dummy.py
           fi
 
       - name: Ejecutar tests con cobertura
         run: |
-          pytest --cov=. --omit=tests/* --cov-report=xml --cov-report=term tests/
+          # Usamos python -m pytest para evitar problemas de PATH
+          python -m pytest --cov=. --omit=tests/* --cov-report=xml --cov-report=term tests/
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v2
