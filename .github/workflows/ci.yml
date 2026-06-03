@@ -27,7 +27,7 @@ jobs:
           # Instalamos pytest y pytest-cov directamente para evitar fallos
           pip install pytest pytest-cov
           # Si tienes un requirements.txt, descomenta la siguiente línea:
-          pip install -r requirements.txt
+          # pip install -r requirements.txt
 
       - name: Crear tests básicos (si no existen)
         run: |
@@ -39,8 +39,8 @@ jobs:
 
       - name: Ejecutar tests con cobertura
         run: |
-          # Usamos python -m pytest para evitar problemas de PATH
-          python -m pytest --cov=. --omit=tests/* --cov-report=xml --cov-report=term tests/
+          # --cov-omit excluye los archivos de tests del informe de cobertura
+          python -m pytest --cov=. --cov-omit=tests/* --cov-report=xml --cov-report=term tests/
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v2
