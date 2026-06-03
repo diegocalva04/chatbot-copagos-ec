@@ -1,9 +1,6 @@
 Asistente de Salud Ecuador – Estimador de Copago y Cobertura
 Chatbot inteligente para pacientes en Ecuador que, a partir de la descripción de síntomas, sugiere una especialidad médica, calcula el copago según el plan de seguro y recomienda el hospital más económico dentro de la red.
 
-Demo en vivo
-https://diegocalva04-chatbot-copagos-ec-app-k5u71v.streamlit.app/
-
 Funcionalidades principales
 - Detección de síntomas por IA – Analiza lenguaje natural usando Groq (Llama 3.3) con fallback a Together AI.
 - Recomendación de especialidad – Predice la especialidad más adecuada y explica el porqué.
