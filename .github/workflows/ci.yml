@@ -49,6 +49,6 @@ jobs:
             -Dsonar.python.version=3.11
             -Dsonar.sources=./
             -Dsonar.inclusions=**/*.py
-            -Dsonar.exclusions=venv/**, .venv/**, **/__pycache__/**, **/*.pyc, assets/**, .streamlit/**, **/secrets.toml
+            -Dsonar.exclusions=venv/**,.venv/**,**/__pycache__/**,**/*.pyc,assets/**,.streamlit/**,**/secrets.toml
             -Dsonar.tests=tests
             -Dsonar.python.coverage.reportPaths=coverage.xml
